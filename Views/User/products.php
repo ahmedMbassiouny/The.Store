@@ -6,7 +6,7 @@ require_once "./../../Models/ProductManager.php";
 $ProductMNG = new ProductManager();
 
 // Default values for sorting
-$sortOption = $sortOption ?? 'name';
+$sortOption = $sortOption ??  'name';
 $sortType = 'productName';
 $sortOrder = 'ASC';
 
@@ -29,7 +29,7 @@ if (isset($_GET['sortSelect'])) {
       break;
     case 'sales':
       $sortType = 'numSales';
-      $sortOrder = 'ASC';
+      $sortOrder = 'DESC';
       break;
     default:
       $sortType = 'productName';

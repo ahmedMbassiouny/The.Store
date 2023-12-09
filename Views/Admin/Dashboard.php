@@ -113,7 +113,6 @@
                                             <th>Stock</th>
                                             <th>Sales</th>
                                             <th>Category</th>
-                                            <th>Edit</th>
                                         </tr>
                                     </thead>
                                     <?php
@@ -138,9 +137,7 @@
 
                                                     <div class="text-center" style="background-color: <?php echo getCategoryColor($row['categoryName']); ?>; padding: 5px; border-radius: 5px;"><?php echo $row['categoryName']; ?></div>
                                                 </td>
-                                                <td>
-                                                    <button class=" text-center btn btn-info"><i class="fa-solid fa-pen-to-square"></i></button>
-                                                </td>
+
                                             </tr>
                                         </tbody>
                                     <?php endforeach; ?>

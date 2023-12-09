@@ -5,7 +5,8 @@ require_once "./../../Models/ProductManager.php";
 
 $ProductMNG = new ProductManager();
 
-$best_Products = $ProductMNG->viewProducts('numSales', 'ASC', 10);
+
+$best_Products = $ProductMNG->viewProducts('numSales', 'DESC', 10);
 $categories = $ProductMNG->viewCategories();
 
 ?>
@@ -30,7 +31,7 @@ $categories = $ProductMNG->viewCategories();
 
 
       <?php
-      if ($_SESSION["checkSucsessMsg"] != "") {
+      if (isset($_SESSION["checkSucsessMsg"]) & !empty($_SESSION["checkSucsessMsg"])) {
       ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
           <i class="bi bi-check-circle me-1"></i>

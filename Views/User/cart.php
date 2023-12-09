@@ -10,6 +10,14 @@ $total_price = 0;
 $promo_discount = 0;
 $shop_discount = 0;
 
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if (isset($_POST["product_deleted_id"])) {
+    $product->deleteFromCart($_SESSION["userId"], $_POST["product_deleted_id"]);
+    $products = $product->viewProducts($_SESSION["userId"]);
+  }
+}
+
 if ($products) {
 
 
@@ -56,7 +64,7 @@ if ($products) {
 
   $shop_discount = 0;
 
-  if ($total_price >= 200 and $num_of_out_stock_count > 5) {
+  if ($total_price >= 200 and $num_of_out_stock_count >= 5) {
     $shop_discount_precentage = 20 / 100;
     $shop_discount = $shop_discount_precentage * $total_price;
   } else if ($total_price >= 200 and $num_of_out_stock_count < 5) {
@@ -69,14 +77,6 @@ if ($products) {
 }
 
 
-
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  if (isset($_POST["product_deleted_id"])) {
-    $product->deleteFromCart($_SESSION["userId"], $_POST["product_deleted_id"]);
-    $products = $product->viewProducts($_SESSION["userId"]);
-  }
-}
 
 
 ?>
@@ -242,7 +242,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <img width="50px" height="30px" src="./../../assets/img/img_us/brand-mastercard_3x.webp" alt="">
 
         <img width="50px" height="30px" src="./../../assets/img/img_us/PayPal.webp" alt="">
-            </div>
+      </div>
   </div>
   </div>
   <div class="col-md-4">
@@ -260,14 +260,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             Total Price
             <span><?php echo $total_price; ?></span>
           </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-            Promo Code Discount
-            <span> -$ <?php echo $promo_discount; ?> </span>
+          <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 ">
+            Promo code (%<?php echo $promocode[0]["discount"] ?? 0; ?>)
+            <span> -$ <?php echo round($promo_discount, 1); ?> </span>
 
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-            Shop Discount
-            <span>- $ <?php echo $shop_discount; ?></span>
+            Shop Disc (%<?php echo $shop_discount_precentage * 100 ?? 0; ?>)
+            <span>- $ <?php echo round($shop_discount, 1); ?></span>
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center px-0">
             Shipping

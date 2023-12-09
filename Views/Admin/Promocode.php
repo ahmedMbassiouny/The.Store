@@ -140,7 +140,7 @@
                                     </div>
                                     <div class="col-12">
                                         <label for="promoCodeDiscount" class="form-label" >Discount percentage</label>
-                                        <input type="range" min="1" max="100" value="1" name = "promoCodeDiscount" class="form-range"  id="discountRange">
+                                        <input type="range" min="1" max="50" value="1" name = "promoCodeDiscount" class="form-range"  id="discountRange">
                                         <center><span id="discountValue" style="font-size: 200px;">1</span><span style="font-size: 200px;">%</span><i class="fa-solid fa-tag fa-2xl" style="color: #cf3a50;"></i> </center>
                                         <script>
                                             var discountRange = document.getElementById("discountRange");

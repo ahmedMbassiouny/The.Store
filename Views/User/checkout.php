@@ -46,7 +46,7 @@ if (isset($_GET["promodiscount"])) {
 
 $shop_discount = 0;
 
-if ($total_price >= 200 and $num_of_out_stock_count > 5) {
+if ($total_price >= 200 and $num_of_out_stock_count >= 5) {
   $shop_discount_precentage = 20 / 100;
   $shop_discount = $shop_discount_precentage * $total_price;
 } else if ($total_price >= 200 and $num_of_out_stock_count < 5) {
@@ -58,7 +58,7 @@ if ($total_price >= 200 and $num_of_out_stock_count > 5) {
 }
 
 $checkout = new checkoutManager();
-
+// l1= address1,l2= address2
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (isset($_POST["l1"]) and $_POST["l2"] and $_POST["l3"] and $_POST["l4"]) {
     $total_price = round($total_price - $promo_discount - $shop_discount, 2);

@@ -6,6 +6,7 @@ require_once "../../Models/selectedproductManager.php";
 require_once "../../Models/cartManager.php";
 
 $sucsessmsg = "";
+$errorAddMsg = "";
 
 $ProductMNG = new ProductManager();
 
@@ -29,15 +30,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($products) {
       foreach ($products as $prod) {
         if ($prod["prod_id"] == $_GET["id"]) {
-          $Cartmgr->updateQuantity($prod["proQuantity"], $prod["prod_id"], $_SESSION["userId"]);
-          $flag = 1;
+          if ($prod["proQuantity"] < $prod["stockQ"]) {
+            $Cartmgr->updateQuantity($prod["proQuantity"] + 1, $prod["prod_id"], $_SESSION["userId"]);
+            $flag = 1;
+            $sucsessmsg = "product added successfully";
+          } else {
+            $errorAddMsg = "Can't add more than stock quantity";
+            $flag = 1;
+          }
         }
       }
     }
     if ($flag == 0) {
       $Cartmgr->addToCart($_SESSION["userId"], $_GET["id"]);
+      $sucsessmsg = "product added successfully";
     }
-    $sucsessmsg = "product added successfully";
   }
 }
 
@@ -92,8 +99,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     <?php
+      $sucsessmsg = "";
     }
+    ?>
 
+    <?php
+    if ($errorAddMsg != "") {
+    ?>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle me-1"></i>
+        <?php echo $errorAddMsg; ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <?php
+      $errorAddMsg = "";
+    }
     ?>
 
     <div id="myProduct-box" class="myProduct pt-2 mt-5">
